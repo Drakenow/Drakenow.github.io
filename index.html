@@ -3,23 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <title>T-Shirt Shop</title>
-  <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <script type="text/javascript">
     (function() {
-      emailjs.init("LqpKE0-D1wVMGZaMs"); // ✅ Replace with your public key
+        emailjs.init("YOUR_PUBLIC_KEY"); // 🔁 Replace this
     })();
 
-    function purchaseShirt(shirtName) {
-      const templateParams = {
-        shirt_name: shirtName,
-        user_email: "test@example.com" // You can collect real email in a form
-      };
-
-      emailjs.send("service_kqk8ndx", "template_3xod27w", templateParams)
+    function purchaseShirt(name) {
+        emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+        shirt_name: name,
+        user_email: "test@example.com"
+        })
         .then(function(response) {
-          alert("Email sent successfully!");
+        alert("Email sent!");
         }, function(error) {
-          alert("Failed to send email: " + JSON.stringify(error));
+        alert("Failed: " + JSON.stringify(error));
         });
     }
   </script>
@@ -37,7 +35,7 @@
 
   <div class="shirt">
     <h3>Classic White Tee</h3>
-    <img src="https://via.placeholder.com/150" alt="White T-Shirt">
+    <img src="https://placehold.co/150x150?text=T-Shirt" alt="White T-Shirt">
     <p>$19.99</p>
     <button onclick="purchaseShirt('Classic White Tee')">Buy</button>
   </div>
