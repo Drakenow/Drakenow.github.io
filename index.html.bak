@@ -14,25 +14,11 @@
       emailjs.init("LqpKE0-D1wVMGZaMs"); // Replace with your public key
     })();
 
-    // Define the vendor's email address
-    const vendorEmail = "drakkenno@gmail.com"; // Replace with the actual vendor's email
-
-    // Function to handle the purchase and show email and address fields
+    // Function to handle the purchase and send emails
     window.purchaseShirt = function(shirtName) {
-      // Show email and address fields after a product is selected
-      document.getElementById("orderForm").style.display = "block";
-      document.getElementById("selectedProduct").innerText = shirtName;
-
-      // Set the shirt name in the form so it is ready to be sent
-      document.getElementById("productName").value = shirtName;
-    };
-
-    // Function to handle the actual purchase (send emails)
-    window.confirmPurchase = function() {
-      // Get the email, address, and selected product name
+      // Get the email and shipping address entered by the user
       var userEmail = document.getElementById("email").value;
       var shippingAddress = document.getElementById("address").value;
-      var shirtName = document.getElementById("productName").value;
 
       // Check if email and address are provided
       if (!userEmail || !shippingAddress) {
@@ -72,7 +58,7 @@
           shipping: 5.00,
           total: 24.99
         },
-        email: vendorEmail,  // Vendor's email address
+        email: "drakkenno@gmail.com", // Vendor's email
         buyer_email: userEmail,  // Send the buyer's email to the vendor
         shipping_address: shippingAddress, // Send the shipping address to the vendor
         shirt_name: shirtName   // Product name for vendor notification
@@ -89,9 +75,9 @@
       // Send email to the vendor (order notification)
       emailjs.send("service_kqk8ndx", "template_xyutwh5", vendorTemplateParams)
         .then(function(response) {
-          alert("Notification email sent to vendor.");
+          console.log("Notification email sent to vendor.");
         }, function(error) {
-          alert("Failed to send vendor notification: " + JSON.stringify(error));
+          console.log("Failed to send vendor notification: " + JSON.stringify(error));
         });
     };
   </script>
@@ -103,13 +89,19 @@
     button { padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; }
     button:hover { background-color: #218838; }
     input[type="email"], input[type="text"] { padding: 10px; width: 80%; margin-bottom: 20px; }
-    #orderForm { display: none; margin-top: 20px; }
   </style>
 </head>
 
 <body>
 
   <h1>Buy a T-Shirt</h1>
+
+  <!-- Email and Address Input -->
+  <label for="email">Enter your email address:</label><br>
+  <input type="email" id="email" placeholder="youremail@example.com"><br><br>
+
+  <label for="address">Enter your shipping address:</label><br>
+  <input type="text" id="address" placeholder="Your shipping address"><br><br>
 
   <!-- Shirt 1: Classic White Tee -->
   <div class="shirt">
@@ -125,21 +117,6 @@
     <img src="https://placehold.co/150x150?text=T-Shirt" alt="Black T-Shirt">
     <p>$24.99</p>
     <button onclick="purchaseShirt('Black Graphic Tee')">Buy</button>
-  </div>
-
-  <!-- Order Form (hidden initially) -->
-  <div id="orderForm">
-    <h3>Confirm Your Order: <span id="selectedProduct"></span></h3>
-
-    <label for="email">Enter your email address:</label><br>
-    <input type="email" id="email" placeholder="youremail@example.com"><br><br>
-
-    <label for="address">Enter your shipping address:</label><br>
-    <input type="text" id="address" placeholder="Your shipping address"><br><br>
-
-    <input type="hidden" id="productName"> <!-- Hidden field to store the selected product name -->
-
-    <button onclick="confirmPurchase()">Confirm Purchase</button>
   </div>
 
 </body>
