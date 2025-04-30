@@ -3,26 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>T-Shirt Shop</title>
-  <script type="module">
-    import emailjs from 'https://cdn.emailjs.com/dist/email.min.mjs';
-  
-    emailjs.init('LqpKE0-D1wVMGZaMs');
-  
-    window.purchaseShirt = function(name) {
-      const templateParams = {
-        shirt_name: name,
-        user_email: 'drakkenno@gmail.com',
-      };
-  
-      emailjs.send('service_kqk8ndx', 'template_3xod27w', templateParams)
-        .then(response => {
-          alert('Thank you! Your purchase email has been sent.');
-        })
-        .catch(error => {
-          alert('Failed to send email: ' + JSON.stringify(error));
-        });
-    }
-  </script>  
   <style>
     body { font-family: Arial, sans-serif; text-align: center; padding: 40px; }
     .shirt { display: inline-block; margin: 20px; border: 1px solid #ccc; padding: 20px; border-radius: 10px; }
@@ -30,25 +10,6 @@
     button { padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; }
     button:hover { background-color: #218838; }
   </style>
-  <script>
-    (function(){
-      emailjs.init("LqpKE0-D1wVMGZaMs"); // Replace with your EmailJS public key
-    })();
-
-    function purchaseShirt(name) {
-      const templateParams = {
-        shirt_name: name,
-        user_email: 'drakkenno@gmail.com', // Optional: dynamically collect user email
-      };
-
-      emailjs.send('service_kqk8ndx', 'template_3xod27w', templateParams)
-        .then(function(response) {
-           alert('Thank you! Your purchase email has been sent.');
-        }, function(error) {
-           alert('Failed to send email: ' + JSON.stringify(error));
-        });
-    }
-  </script>
 </head>
 <body>
 
@@ -68,12 +29,28 @@
     <button onclick="purchaseShirt('Black Graphic Tee')">Buy</button>
   </div>
 
-  <div class="shirt">
-    <h3>Vintage Red Tee</h3>
-    <img src="https://via.placeholder.com/150/FF0000/FFFFFF" alt="Red T-Shirt">
-    <p>$22.99</p>
-    <button onclick="purchaseShirt('Vintage Red Tee')">Buy</button>
-  </div>
+  <script type="module">
+    import emailjs from 'https://cdn.emailjs.com/dist/email.min.mjs';
+
+    // Initialize EmailJS
+    emailjs.init('LqpKE0-D1wVMGZaMs'); // 🔁 Replace with your public key
+
+    // Make purchaseShirt global
+    window.purchaseShirt = function(shirtName) {
+      const templateParams = {
+        shirt_name: shirtName,
+        user_email: 'test@example.com' // Optional: collect user email dynamically
+      };
+
+      emailjs.send('service_kqk8ndx', 'template_3xod27w', templateParams) // 🔁 Replace with your IDs
+        .then(response => {
+          alert('Email sent successfully!');
+        })
+        .catch(error => {
+          alert('Failed to send email: ' + JSON.stringify(error));
+        });
+    };
+  </script>
 
 </body>
 </html>
