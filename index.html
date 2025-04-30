@@ -6,7 +6,7 @@
   <script type="module">
     import emailjs from 'https://cdn.emailjs.com/dist/email.min.mjs';
   
-    emailjs.init('YOUR_PUBLIC_KEY');
+    emailjs.init('LqpKE0-D1wVMGZaMs');
   
     window.purchaseShirt = function(name) {
       const templateParams = {
@@ -14,7 +14,7 @@
         user_email: 'customer@example.com',
       };
   
-      emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+      emailjs.send('service_kqk8ndx', 'template_3xod27w', templateParams)
         .then(response => {
           alert('Thank you! Your purchase email has been sent.');
         })
