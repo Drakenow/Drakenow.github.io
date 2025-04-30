@@ -3,8 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <title>T-Shirt Shop</title>
+  <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function() {
+      emailjs.init("LqpKE0-D1wVMGZaMs"); // ✅ Replace with your public key
+    })();
+
+    function purchaseShirt(shirtName) {
+      const templateParams = {
+        shirt_name: shirtName,
+        user_email: "test@example.com" // You can collect real email in a form
+      };
+
+      emailjs.send("service_kqk8ndx", "template_3xod27w", templateParams)
+        .then(function(response) {
+          alert("Email sent successfully!");
+        }, function(error) {
+          alert("Failed to send email: " + JSON.stringify(error));
+        });
+    }
+  </script>
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 40px; }
+    body { font-family: Arial; text-align: center; padding: 40px; }
     .shirt { display: inline-block; margin: 20px; border: 1px solid #ccc; padding: 20px; border-radius: 10px; }
     .shirt img { width: 150px; }
     button { padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; }
@@ -28,30 +48,6 @@
     <p>$24.99</p>
     <button onclick="purchaseShirt('Black Graphic Tee')">Buy</button>
   </div>
-
-  <script type="module">
-    import emailjs from 'https://cdn.emailjs.com/dist/email.min.mjs';
-
-    // Initialize EmailJS
-    emailjs.init('LqpKE0-D1wVMGZaMs'); // 🔁 Replace with your public key
-
-    // Make purchaseShirt global
-    window.purchaseShirt = function(shirtName) {
-        const templateParams = {
-            shirt_name: shirtName,
-            user_email: 'test@example.com'
-        };
-
-        emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
-            .then(response => {
-            alert('Email sent successfully!');
-            })
-            .catch(error => {
-            alert('Failed to send email: ' + JSON.stringify(error));
-            });
-    };
-
-  </script>
 
 </body>
 </html>
