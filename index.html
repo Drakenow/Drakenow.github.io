@@ -1,43 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Argentum Online - Server</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>T-Shirt Shop</title>
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 40px; }
+    .shirt { display: inline-block; margin: 20px; border: 1px solid #ccc; padding: 20px; border-radius: 10px; }
+    .shirt img { width: 150px; }
+    button { padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    button:hover { background-color: #218838; }
+  </style>
+  <script>
+    (function(){
+      emailjs.init("LqpKE0-D1wVMGZaMs"); // Replace with your EmailJS public key
+    })();
+
+    function purchaseShirt(name) {
+      const templateParams = {
+        shirt_name: name,
+        user_email: 'customer@example.com', // Optional: dynamically collect user email
+      };
+
+      emailjs.send('service_kqk8ndx', 'template_3xod27w', templateParams)
+        .then(function(response) {
+           alert('Thank you! Your purchase email has been sent.');
+        }, function(error) {
+           alert('Failed to send email: ' + JSON.stringify(error));
+        });
+    }
+  </script>
 </head>
 <body>
-    <header>
-        <h1>Welcome to Argentum Online</h1>
-        <p>Your ultimate fantasy MMORPG adventure!</p>
-    </header>
 
-    <nav>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="download.html">Download</a></li>
-            <li><a href="register.html">Register</a></li>
-            <li><a href="status.html">Server Status</a></li>
-        </ul>
-    </nav>
+  <h1>Buy a T-Shirt</h1>
 
-    <main>
-        <section>
-            <h2>Join the Adventure!</h2>
-            <p>Download the game and start playing now.</p>
-            <a href="download/AOClient.zip" class="btn">Download Now</a>
-        </section>
+  <div class="shirt">
+    <h3>Classic White Tee</h3>
+    <img src="https://via.placeholder.com/150" alt="White T-Shirt">
+    <p>$19.99</p>
+    <button onclick="purchaseShirt('Classic White Tee')">Buy</button>
+  </div>
 
-        <section>
-            <h2>Server Status</h2>
-            <p id="server-status">Checking...</p>
-        </section>
-    </main>
+  <div class="shirt">
+    <h3>Black Graphic Tee</h3>
+    <img src="https://via.placeholder.com/150/000000/FFFFFF" alt="Black T-Shirt">
+    <p>$24.99</p>
+    <button onclick="purchaseShirt('Black Graphic Tee')">Buy</button>
+  </div>
 
-    <footer>
-        <p>© 2025 Argentum Online Server. All rights reserved.</p>
-    </footer>
+  <div class="shirt">
+    <h3>Vintage Red Tee</h3>
+    <img src="https://via.placeholder.com/150/FF0000/FFFFFF" alt="Red T-Shirt">
+    <p>$22.99</p>
+    <button onclick="purchaseShirt('Vintage Red Tee')">Buy</button>
+  </div>
 
-    <script src="script.js"></script>
 </body>
 </html>
