@@ -14,11 +14,21 @@
       emailjs.init("LqpKE0-D1wVMGZaMs"); // Replace with your public key
     })();
 
-    // Function to handle the purchase and send email
+    // Function to handle the purchase and send emails
     window.purchaseShirt = function(shirtName) {
-      // Template parameters, adjust as needed
-      const templateParams = {
-        order_id: "123456", // Example Order ID, you can dynamically generate this
+      // Get the email and shipping address entered by the user
+      var userEmail = document.getElementById("email").value;
+      var shippingAddress = document.getElementById("address").value;
+
+      // Check if email and address are provided
+      if (!userEmail || !shippingAddress) {
+        alert("Please enter your email and shipping address.");
+        return;
+      }
+
+      // Template parameters for buyer's order confirmation email
+      const buyerTemplateParams = {
+        order_id: "123456", // Example Order ID
         orders: [
           {
             name: shirtName,   // Product name, dynamic based on button clicked
@@ -30,15 +40,43 @@
           shipping: 5.00,    // Shipping cost
           total: 24.99       // Total cost (product price + shipping)
         },
-        email: "drakkenno@gmail.com"  // Customer email, update with form data
+        email: userEmail,     // Use the email entered by the user
+        address: shippingAddress, // Add shipping address to template
       };
 
-      // Send the email using EmailJS
-      emailjs.send("service_kqk8ndx", "template_3xod27w", templateParams)
+      // Template parameters for vendor's notification email
+      const vendorTemplateParams = {
+        order_id: "123456", // Example Order ID
+        orders: [
+          {
+            name: shirtName,
+            units: 1,
+            price: 19.99
+          }
+        ],
+        cost: {
+          shipping: 5.00,
+          total: 24.99
+        },
+        buyer_email: userEmail,  // Send the buyer's email to the vendor
+        shipping_address: shippingAddress, // Send the shipping address to the vendor
+        shirt_name: shirtName   // Product name for vendor notification
+      };
+
+      // Send email to the buyer (order confirmation)
+      emailjs.send("service_kqk8ndx", "template_3xod27w", buyerTemplateParams)
         .then(function(response) {
-          alert("Email sent successfully!");
+          alert("Confirmation email sent to you!");
         }, function(error) {
-          alert("Failed to send email: " + JSON.stringify(error));
+          alert("Failed to send confirmation email: " + JSON.stringify(error));
+        });
+
+      // Send email to the vendor (order notification)
+      emailjs.send("service_kqk8ndx", "template_xyutwh5", vendorTemplateParams)
+        .then(function(response) {
+          console.log("Notification email sent to vendor.");
+        }, function(error) {
+          console.log("Failed to send vendor notification: " + JSON.stringify(error));
         });
     };
   </script>
@@ -49,12 +87,20 @@
     .shirt img { width: 150px; }
     button { padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; }
     button:hover { background-color: #218838; }
+    input[type="email"], input[type="text"] { padding: 10px; width: 80%; margin-bottom: 20px; }
   </style>
 </head>
 
 <body>
 
   <h1>Buy a T-Shirt</h1>
+
+  <!-- Email and Address Input -->
+  <label for="email">Enter your email address:</label><br>
+  <input type="email" id="email" placeholder="youremail@example.com"><br><br>
+
+  <label for="address">Enter your shipping address:</label><br>
+  <input type="text" id="address" placeholder="Your shipping address"><br><br>
 
   <!-- Shirt 1: Classic White Tee -->
   <div class="shirt">
