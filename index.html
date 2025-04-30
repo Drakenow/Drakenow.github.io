@@ -40,6 +40,10 @@
         return;
       }
 
+      // Show a "Thank You for Your Order" pop-up
+      alert("Thank you for your order! We will send you an email with your order details soon.");
+
+
       // Template parameters for buyer's order confirmation email
       const buyerTemplateParams = {
         order_id: "123456", // Example Order ID
@@ -88,9 +92,7 @@
 
       // Send email to the vendor (order notification)
       emailjs.send("service_kqk8ndx", "template_xyutwh5", vendorTemplateParams)
-        .then(function(response) {
-          alert("Notification email sent to vendor.");
-        }, function(error) {
+        .then(function(error) {
           alert("Failed to send vendor notification: " + JSON.stringify(error));
         });
     };
