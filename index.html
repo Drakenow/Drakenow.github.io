@@ -3,7 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <title>T-Shirt Shop</title>
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script type="module">
+    import emailjs from 'https://cdn.emailjs.com/dist/email.min.mjs';
+  
+    emailjs.init('YOUR_PUBLIC_KEY');
+  
+    window.purchaseShirt = function(name) {
+      const templateParams = {
+        shirt_name: name,
+        user_email: 'customer@example.com',
+      };
+  
+      emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+        .then(response => {
+          alert('Thank you! Your purchase email has been sent.');
+        })
+        .catch(error => {
+          alert('Failed to send email: ' + JSON.stringify(error));
+        });
+    }
+  </script>  
   <style>
     body { font-family: Arial, sans-serif; text-align: center; padding: 40px; }
     .shirt { display: inline-block; margin: 20px; border: 1px solid #ccc; padding: 20px; border-radius: 10px; }
