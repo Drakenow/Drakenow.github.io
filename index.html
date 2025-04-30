@@ -160,6 +160,18 @@
       text-decoration: none;
       cursor: pointer;
     }
+    .back-btn {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .back-btn:hover {
+      background-color: #0056b3;
+    }
   </style>
 </head>
 
@@ -204,6 +216,7 @@
       <span class="close" onclick="closeModal()">&times;</span>
       <h2>Thank you for your order!</h2>
       <p>We will send you an email with your order details soon.</p>
+      <button class="back-btn" onclick="closeModal()">Close</button>
     </div>
   </div>
 
